@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "utf-8">
+    <meta name="viewpoint" content = "width = device width, initial-scale = 1">
+    <title>Solar System</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+            font-size: 6.5px;
+            font-family: system-ui;
+            font-weight: 300;
+            background: url(https://media.istockphoto.com/id/157639696/photo/purple-space-stars.jpg?s=612x612&w=0&k=20&c=fkLtGZxUS9UPlLJUTeGjvvURT0u-vtxvj5sAYbDNrH4=), #000;
+        }
+        #universe{
+            z-index: 1;
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #galaxy{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        #solar-system{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+        .orbit .orbit{animation-name: suborbit;}
+        .orbit{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            animation-name: orbit;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        .outer{
+            position: absolute;
+            top: 50%;
+            width: 2em;
+            height: 2em;
+            margin-top: -1em;
+            margin-left: -1em;
+            transform-style: preserve-3d;
+            animation-name: invert;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        #sun, .planet, #earth .moon{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1em;
+            height: 1em;
+            margin-top: -0.5em;
+            margin-left: -0.5em;
+            border-radius: 50%;
+            transform-style: preserve-3d;
+        }
+        #sun{
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0 0 60px rgba(255, 160, 60, 0.4);
+        }
+        .planet{
+            background-color: #202020;
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        .ring{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+        }
+        #saturn .ring{
+            width: 2em;
+            height: 2em;
+            margin-top: -1.2em;
+            margin-left: -1.3em;
+            border: 0.3em solid rgba(160, 147, 130, 0.7);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        #saturn .ring:after{
+            border-radius: 50%;
+            position: absolute;
+            content: '';
+            top: 50%;
+            width: 2.2em;
+            height: 2.2em;
+            margin-top: -1.1em;
+            margin-left: -1.1em;
+            border: 0.7em solid rgba(160, 147, 130, 0.5);
+            box-sizing: border-box;
+        }
+        @keyframes orbit{
+            0%{transform: rotateZ(0deg);}
+            100%{transform: rotateZ(-360deg);}
+        }
+        @keyframes suborbit{
+            0%{transform: rotateX(90deg)rotateZ(0deg);}
+            100%{transform: rotateX(90deg)rotateZ(-360deg);}
+        }
+        @keyframes invert{
+            0%{
+                transform: rotateZ(-90deg)rotateY(360deg)rotateZ(0deg);
+            }
+            100%{
+                transform: rotateZ(-90deg)rotateY(0deg)rotateZ(0deg);
+            }
+        }
+        .view-3D #solar-system{
+            transform: rotateX(75deg);
+        }
+        .view-3D #sun{
+            transform: rotateX(-90deg);
+        }
+        .view-3D .ring{
+            transform: rotateX(90deg);
+        }
+        .view-3D .planet, .view-3D .moon{
+            transform: rotateX(0deg);
+        }
+        #mercury .outer, #mercury .planet, #mercury.orbit{
+            animation-duration: 2s;
+        }
+        #venus .outer, #venus .planet, #venus.orbit{
+            animation-duration: 7s;
+        }
+        #earth .outer, #earth .planet, #earth.orbit{
+            animation-duration: 12s;
+        }
+        #earth .orbit .outer, #earth.orbit{
+            animation-duration: 0.9s;
+        }
+        #mars .outer, #mars .planet, #mars.orbit{
+            animation-duration: 22s;
+        }
+        #jupiter .outer, #jupiter .planet, #jupiter.orbit{
+            animation-duration: 142s;
+        }
+        #saturn .outer, #saturn .planet, #saturn.orbit, #saturn .ring{
+            animation-duration: 353s;
+        }
+        #uranus .outer, #uranus .planet, #uranus.orbit{
+            animation-duration: 1008s;
+        }
+        #neptune .outer, #neptune .planet, #neptune.orbit{
+            animation-duration: 1977s;
+        }
+        .label dt{font-size:13px; color:white;}
+        .scale-stretched #sun{font-size:24em;}
+        .scale-stretched #mercury .planet{font-size:1.5em;}
+        .scale-stretched #venus .planet{font-size:3.72em;}
+        .scale-stretched #earth .planet{font-size:3.92em;}
+        .scale-stretched #earth .moon{font-size:1.2em;}
+        .scale-stretched #mars .planet{font-size:2.9em;}
+        .scale-stretched #jupiter .planet{font-size:12em;}
+        .scale-stretched #saturn .planet{font-size:10.8em;}
+        .scale-stretched #uranus .planet{font-size:2.68em;}
+        .scale-stretched #neptune .planet{font-size:4.9em;} 
+        .scale-stretched #mercury.orbit{
+            width: 32em;
+            height: 32em;
+            margin-top: -16em;
+            margin-left: -16em;
+        }
+        .scale-stretched #venus.orbit{
+            width: 40em;
+            height: 40em;
+            margin-top: -20em;
+            margin-left: -20em;
+        }
+        .scale-stretched #earth.orbit{
+            width: 56em;
+            height: 56em;
+            margin-top: -28em;
+            margin-left: -28em;
+        }
+        .scale-stretched #earth.orbit{
+            width: 6em;
+            height: 6em;
+            margin-top: -3em;
+            margin-left: -3em;
+        }
+        .scale-stretched #mars.orbit{
+            width: 72em;
+            height: 72em;
+            margin-top: -36em;
+            margin-left: -36em;
+        }
+        .scale-stretched #jupiter.orbit{
+            width: 100em;
+            height: 100em;
+            margin-top: -50em;
+            margin-left: -50em;
+        }
+        .scale-stretched #saturn.orbit{
+            width: 150em;
+            height: 150em;
+            margin-top: -75em;
+            margin-left: -75em;
+        }
+        .scale-stretched #uranus.orbit{
+            width: 186em;
+            height: 186em;
+            margin-top: -93em;
+            margin-left: -93em;
+        }
+        .scale-stretched #neptune.orbit{
+            width: 210em;
+            height: 210em;
+            margin-top: -105em;
+            margin-left: -105em;
+        }
+        #sun{background-image: url(https://images.nationalgeographic.org/image/upload/t_RL2_search_thumb/v1638882786/EducationHub/photos/sun-blasts-a-m66-flare.jpg);}
+        #mercury .planet{background-color: #b7b8b9;}
+        #venus .planet{background-image: url(https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/internal_resources/4881/Venus.jpeg?w=800&h=600&fit=clip&crop=faces%2Cfocalpoint);}
+        #earth .planet{background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/290px-The_Earth_seen_from_Apollo_17.jpg);}
+        #earth .moon{backgourd-color: white;}
+        #mars .planet{background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/1200px-OSIRIS_Mars_true_color.jpg);}
+        #jupiter .planet{background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg);}
+        #saturn .planet{background-image: url(https://science.nasa.gov/wp-content/uploads/2023/05/pia05380-saturn-with-rings-16x9-1.jpg?w=4096&format=jpeg&crop=1);}
+        #uranus .planet{background-image: url(https://i.natgeofe.com/k/5ef3cf41-7940-4f09-8779-4c28c4b3b93c/uranus_4x3.jpg);}
+        #neptune .planet{background-image: url(https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/0/PIA01492-1.jpg?w=2188&h=2185&fit=clip&crop=faces%2Cfocalpoint);}
+    </style>
+</head>
+<body class="view-3D">
+    <div id = "universe" class="scale-stretched">
+        <div id = "galaxy">
+            <div id = "solar- system" class = "earth">
+                <div id = "mercury" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Mercury</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "venus" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Venus</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "earth" class = "orbit">
+                    <div class = "outer">
+                        <div class="orbit">
+                            <div class="outer">
+                                <div class = "moon"></div>
+                            </div>
+                        </div>
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Earth</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "mars" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Mars</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "jupiter" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Jupiter</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "saturn" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Saturn</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "uranus" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Uranus</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "neptune" class = "orbit">
+                    <div class = "outer">
+                        <div class="planet">
+                            <dl class="label">
+                                <dt>Neptune</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div id = "sun">
+                    <dl class = "label">
+                        <dt>Sun</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
