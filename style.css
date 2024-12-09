@@ -172,7 +172,7 @@ img{
   right: 0.8em;
   width: 2em;
   height: 2em;
-  background-image: url('');
+  background-image: url('https://mediaproxy.salon.com/width/1200/https://media2.salon.com/2021/05/planet-uranus-0519211.jpg');
   background-size: cover;
 }
 .neptune::before{
@@ -180,7 +180,7 @@ img{
   right: 0.8em;
   width: 2em;
   height: 2em;
-  background-image: url('');
+  background-image: url('https://vjloopsfarm.com/wp-content/uploads/2021/03/Beautiful-View-of-Blue-Planet-Neptune-from-Space-Timelapse-hiphp8-1920_003.jpg');
   background-size: cover;
 }
 .pluto::before{
@@ -188,7 +188,7 @@ img{
   right: 0.8em;
   width: 2em;
   height: 2em;
-  background-image: url('');
+  background-image: url('https://cdn.mos.cms.futurecdn.net/DoZSMXF87kCuzbymsuEFHo-1200-80.jpg');
   background-size: cover;
 }
 
